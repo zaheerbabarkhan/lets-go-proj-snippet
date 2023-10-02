@@ -1,0 +1,4 @@
+ERROR	2023/10/01 23:09:27 main.go:34: listen tcp :9998: bind: address already in use
+exit status 1
+ERROR	2023/10/01 23:12:41 main.go:39: listen tcp :9998: bind: address already in use
+exit status 1
