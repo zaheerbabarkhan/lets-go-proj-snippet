@@ -27,15 +27,6 @@ func main() {
 		errorLog: errorLog,
 	}
 
-	mux := http.NewServeMux()
-
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet", app.showSnippet)
-	mux.HandleFunc("/snippet/create", app.createSnippet)
-
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-
 	cfg := new(Config)
 	flag.StringVar(&cfg.Addr, "addr", ":4000", "HTTP network address")
 	flag.Parse()
@@ -43,7 +34,7 @@ func main() {
 	server := http.Server{
 		Addr:     cfg.Addr,
 		ErrorLog: errorLog,
-		Handler:  mux,
+		Handler:  app.routes(),
 	}
 	infoLog.Printf("Starting server on %s", cfg.Addr)
 	err := server.ListenAndServe()
